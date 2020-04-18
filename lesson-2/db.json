@@ -1,19 +1,12 @@
 {
   "users": [
     {
-      "name": "hoàng"
+      "name": "thang",
+      "id": "8e5cd8"
     },
     {
-      "name": "đào"
-    },
-    {
-      "name": "dung"
-    },
-    {
-      "name": ""
-    },
-    {
-      "name": "phi"
+      "name": "trung",
+      "id": "3121f7"
     }
   ]
 }

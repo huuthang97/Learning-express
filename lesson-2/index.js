@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+var ids = require('short-id');
 
 const adapter = new FileSync('db.json')
 const db = low(adapter)
@@ -52,9 +53,16 @@ app.get('/users/create', function (req, res) {
 });
 
 app.post("/users/create", function (req, res) {
-  var name = req.body;
-  db.get('users').push(name).write();
+  req.body.id = ids.generate();
+  db.get('users').push(req.body).write();
   res.redirect("/users")
+})
+
+app.get("/users/:id", function (req, res) {
+  var id = req.params.id
+  var user = db.get('users').find({id: id}).value();
+  res.render('users/view', {user: user})
+  
 })
 
 app.listen(3001, function(){
