@@ -2,6 +2,11 @@ extends ../../layouts/common.pug
 
 block content
     h1 Create user
+    
+    if errors
+        each error in errors
+            .alert-danger=errors
+
     form(action="/users/create", method="POST")
         input(type="text", name="name")
         button Create

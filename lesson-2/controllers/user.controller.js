@@ -26,9 +26,20 @@ module.exports.getCreate = function (req, res) {
   }
 
 module.exports.postCreate = function (req, res) {
-    req.body.id = ids.generate();
-    db.get('users').push(req.body).write();
-    res.redirect("/users")
+  console.log(req.body);
+  var errors = [];
+  if(!(req.body.name)){
+    errors.push('Name is required!');
+  }
+
+  if(errors.length){
+    res.render('users/create', {errors: errors});
+    return;
+  }
+
+  req.body.id = ids.generate();
+  db.get('users').push(req.body).write();
+  res.redirect("/users")
   }
 
 module.exports.view = function (req, res) {
