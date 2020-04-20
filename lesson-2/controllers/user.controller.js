@@ -1,6 +1,5 @@
 var db = require('../db');
 var ids = require('short-id');
-
 // console.log(db.users)
 
 module.exports.index = function (req, res) {
@@ -26,17 +25,6 @@ module.exports.getCreate = function (req, res) {
   }
 
 module.exports.postCreate = function (req, res) {
-  console.log(req.body);
-  var errors = [];
-  if(!(req.body.name)){
-    errors.push('Name is required!');
-  }
-
-  if(errors.length){
-    res.render('users/create', {errors: errors});
-    return;
-  }
-
   req.body.id = ids.generate();
   db.get('users').push(req.body).write();
   res.redirect("/users")
