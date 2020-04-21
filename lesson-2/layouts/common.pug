@@ -6,4 +6,8 @@ head
   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css')
 
 body
- block content
+  if(user)
+    div
+      span Hi,
+      span=user.name
+  block content

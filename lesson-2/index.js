@@ -6,7 +6,7 @@ var authRouter = require('./routes/auth.route')
 var authMiddleware = require('./middleware/auth.middleware');
 
 const app = express();
-app.use(cookieParser())
+app.use(cookieParser('setCookiehuhuhuhu'))
 
 app.set('view engine', 'pug')
 app.set('views', './views')
