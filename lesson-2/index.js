@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
@@ -6,7 +7,7 @@ var authRouter = require('./routes/auth.route')
 var authMiddleware = require('./middleware/auth.middleware');
 
 const app = express();
-app.use(cookieParser('setCookiehuhuhuhu'))
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.set('view engine', 'pug')
 app.set('views', './views')
