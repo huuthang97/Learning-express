@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser')
 var userRouter = require('./routes/user.route')
 var authRouter = require('./routes/auth.route')
 var authMiddleware = require('./middleware/auth.middleware');
+var productRouter = require('./routes/product.route');
 
 const app = express();
 app.use(cookieParser(process.env.SESSION_SECRET));
@@ -23,7 +24,8 @@ app.get('/', function (req, res) {
 })
  
 app.use('/users',authMiddleware.requireAuth, userRouter);
-app.use('/auth', authRouter)
+app.use('/auth', authRouter);
+app.use('/products', productRouter);
 
 app.listen(3001, function(){
   console.log('Server running.... port 30001')

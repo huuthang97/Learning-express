@@ -1,0 +1,38 @@
+extends ../../layouts/products
+
+block content
+    .container
+        h2 Products
+        #search.mr-auto.row.mb-5
+            input#myInput.form-control.col-sm-3.ml-auto(type='text' placeholder='Search..')
+            button Search
+        .row
+            if(products)
+                each product in products
+                    .col-sm-3.mb-3
+                        .card
+                            img.card-img-top(src="" + product.image )
+                            .card-body
+                            h4.card-title= product.name
+                            p.card-text= product.description
+                            a.btn.btn-primary(href='#') Add
+        
+            if (totalPage > 1)
+                .ml-auto
+                    - var page = 1;
+                    ul.pagination
+                        if (currentPage > 1)
+                            - var  previous = currentPage - 1;
+                            li.page-item
+                                a.page-link(href='products?page=' + previous) Previous
+
+                        while page <= totalPage
+                            -var active = (currentPage == page) ? ' active' : '';
+                                li(class="page-item" + active)
+                                    a.page-link(href='products?page=' + page)=page++
+                        
+                        if (currentPage < totalPage)
+                            - var next = currentPage + 1;
+                            li.page-item
+                                a.page-link(href='products?page=' + next) Next
+                        
