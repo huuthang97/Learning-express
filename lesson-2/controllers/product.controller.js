@@ -1,6 +1,6 @@
 var db = require('../db');
 module.exports.products = function (req, res) {
-    var currentPage = parseInt(req.query.page);
+    var currentPage = req.query.page ? parseInt(req.query.page) : 1;
     var perPage = 8;
     var start = (currentPage - 1) * perPage;
     var end = parseInt(currentPage * perPage);
@@ -9,7 +9,6 @@ module.exports.products = function (req, res) {
     var totalPage = Math.ceil(totalProducts / perPage);
     
     var products = db.get('products').value().slice(start, end);
-    // console.log(products)
     res.render('products', {
         products: products,
         totalPage: totalPage,

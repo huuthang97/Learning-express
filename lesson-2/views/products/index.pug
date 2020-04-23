@@ -15,7 +15,7 @@ block content
                             .card-body
                             h4.card-title= product.name
                             p.card-text= product.description
-                            a.btn.btn-primary(href='#') Add
+                            a.btn.btn-primary(href='cart/add/' + product.id) Add
         
             if (totalPage > 1)
                 .ml-auto

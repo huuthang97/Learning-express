@@ -630,5 +630,14 @@
       "image": "https://loremflickr.com/320/240",
       "description": "cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum enim non nisi. Aenean eget metus. In"
     }
+  ],
+  "session": [
+    {
+      "id": "1a23ca",
+      "cart": {
+        "8639E63D-415D-337F-B1EF-5EF383A6FD48": 4,
+        "90189380-A4A5-F255-52C7-267AD68B03E0": 2
+      }
+    }
   ]
 }
