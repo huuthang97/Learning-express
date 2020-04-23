@@ -7,6 +7,12 @@ block content
         each error in errors
             .alert-danger=errors
 
-    form(action="/users/create", method="POST")
+    form(action="/users/create", method="POST", enctype="multipart/form-data")
+        label Name
         input(type="text", name="name")
+        br
+        br
+        input(type="file", name="avatar")
+        br
+        br
         button Create

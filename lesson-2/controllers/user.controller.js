@@ -25,7 +25,12 @@ module.exports.getCreate = function (req, res) {
   }
 
 module.exports.postCreate = function (req, res) {
+  var dir = req.file.destination.split("/").slice(1,2).join();
+  var fileName = req.file.filename;
+  var avatar = dir + "/" + fileName;
+
   req.body.id = ids.generate();
+  req.body.avatar = avatar;
   db.get('users').push(req.body).write();
   res.redirect("/users")
   }
