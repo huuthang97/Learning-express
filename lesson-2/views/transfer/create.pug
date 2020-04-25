@@ -1,0 +1,16 @@
+extends ../../layouts/common
+
+block content
+ .container
+    h1 New transfer
+
+    form(method="POST")
+        .form-group
+            input(type="hidden", name="_csrf", value=csrfToken)
+            label Account
+            input#account.form-control(name="accountId", type="text")
+        .form-group
+            label Amount
+            input#account.form-control(name="amount", type="number")
+
+        button.btn.btn-primary Transfer        
