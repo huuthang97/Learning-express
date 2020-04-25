@@ -1,26 +1,27 @@
+require('dotenv').config();
+var cookieParser = require('cookie-parser')
+var csrf = require('csurf')
 const express = require('express')
 const bodyParser = require('body-parser')
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
+var userRouter = require('./routes/user.route')
+var authRouter = require('./routes/auth.route')
+var authMiddleware = require('./middleware/auth.middleware');
+var productRouter = require('./routes/product.route');
+var cartRouter = require('./routes/cart.route');
+var sessionMiddleware = require('./middleware/session.middleware');
+var transferRouter = require("./routes/transfer.route");
 
-const adapter = new FileSync('db.json')
-const db = low(adapter)
-
-const app = express()
+const app = express();
+app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(sessionMiddleware);
 app.set('view engine', 'pug')
 app.set('views', './views')
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.static('public'));
+app.use(csrf({ cookie: true }))
 
-// var users = [
-//   {id:1, name: 'Huu Thang'},
-//   {id:1, name: 'Cuu Trung'},
-
-// ];
-
-db.defaults({ users: [] })
-  .write()
 
 app.get('/', function (req, res) {
   res.render('index', {
@@ -28,34 +29,11 @@ app.get('/', function (req, res) {
   })
 })
  
-
-app.get('/users', function (req, res) {
-  res.render('users/index', {
-    users: db.get('users').value()
-  });
-})
-
-app.get('/users/search', function (req, res) {
-  var q = req.query.q;
-  // console.log(req.query.q)
-  resultSearch = db.get('users').value().filter(function(user){
-    return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-  })
-
-  res.render('users/index', {
-    users: resultSearch
-  })
-})
-
-app.get('/users/create', function (req, res) {
-  res.render("users/create");
-});
-
-app.post("/users/create", function (req, res) {
-  var name = req.body;
-  db.get('users').push(name).write();
-  res.redirect("/users")
-})
+app.use('/users',authMiddleware.requireAuth, userRouter);
+app.use('/auth', authRouter);
+app.use('/products', productRouter);
+app.use('/cart', cartRouter);
+app.use('/transfer', authMiddleware.requireAuth, transferRouter);
 
 app.listen(3001, function(){
   console.log('Server running.... port 30001')
